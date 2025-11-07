@@ -123,25 +123,56 @@ nav {
 
 .cta-btn {
     display: inline-block;
-    padding: 0.75rem 2rem;
-    background: rgba(39, 174, 96, 0.2);
+    padding: 1rem 2.5rem;
+    background: rgba(39, 174, 96, 0.25);
     color: #58d68d;
     text-decoration: none;
-    border-radius: 2px;
-    font-weight: 300;
-    font-size: 0.95rem;
-    letter-spacing: 0.1em;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 1rem;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    border: 1px solid rgba(88, 214, 141, 0.6);
-    transition: all 0.3s ease;
-    backdrop-filter: blur(5px);
+    border: 2px solid rgba(88, 214, 141, 0.7);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 20px rgba(39, 174, 96, 0.2), 
+                0 0 0 0 rgba(88, 214, 141, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(88, 214, 141, 0.2), 
+        transparent);
+    transition: left 0.6s ease;
+}
+
+.cta-btn:hover::before {
+    left: 100%;
 }
 
 .cta-btn:hover {
-    background: rgba(39, 174, 96, 0.3);
-    border-color: rgba(88, 214, 141, 0.9);
+    background: rgba(39, 174, 96, 0.4);
+    border-color: #58d68d;
     color: #e8f5e8;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px rgba(39, 174, 96, 0.4), 
+                0 0 20px rgba(88, 214, 141, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.cta-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 15px rgba(39, 174, 96, 0.3);
 }
 
 /* Main Content Sections */
@@ -227,9 +258,8 @@ nav {
 
 /* Experience Cards */
 .experience-card {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 3rem;
+    display: flex;
+    flex-direction: column;
     margin-bottom: 4rem;
     background: #161b22;
     border-radius: 12px;
@@ -247,12 +277,16 @@ nav {
 
 .experience-image {
     position: relative;
-    min-height: 300px;
+    height: 350px;
     background: #0d1117;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-right: 1px solid rgba(39, 174, 96, 0.1);
+    margin: 0 auto;
+    max-width: 600px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(39, 174, 96, 0.1);
 }
 
 .experience-image img {
@@ -260,6 +294,32 @@ nav {
     height: 100%;
     object-fit: cover;
     filter: brightness(0.8);
+}
+
+/* Experience Image Gallery */
+.experience-image-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin: 0 auto;
+    max-width: 900px;
+    padding: 1rem;
+}
+
+.experience-image-gallery img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    filter: brightness(0.8);
+    border: 1px solid rgba(39, 174, 96, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.experience-image-gallery img:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+    filter: brightness(0.9);
 }
 
 .image-placeholder {
@@ -284,6 +344,8 @@ nav {
 
 .experience-content {
     padding: 2rem;
+    order: -1; /* Hace que el contenido aparezca antes que la imagen */
+    margin-bottom: 2rem;
 }
 
 .experience-header {
@@ -432,25 +494,42 @@ footer {
     }
     
     .cta-btn {
-        padding: 0.7rem 1.8rem;
-        font-size: 0.9rem;
+        padding: 0.9rem 2rem;
+        font-size: 0.95rem;
+        letter-spacing: 0.12em;
+    }
+    
+    .hero-background {
+        background-position: 25% center;
+        background-size: cover;
     }
     
     .hero-content {
-        padding: 0 1rem 3rem;
-    }
-    
-    .experience-card {
-        grid-template-columns: 1fr;
-        gap: 0;
+        padding: 0 1rem 2rem;
+        align-items: flex-end;
     }
     
     .experience-image {
-        min-height: 200px;
+        height: 200px;
+        max-width: none;
+        margin: 0;
+        order: 0; /* Restaura el orden original en móviles */
+    }
+    
+    .experience-image-gallery {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        padding: 0.75rem;
+    }
+    
+    .experience-image-gallery img {
+        height: 220px;
     }
     
     .experience-content {
         padding: 1.5rem;
+        order: 0; /* Restaura el orden original en móviles */
+        margin-bottom: 0;
     }
     
     .reflections-grid {
@@ -477,6 +556,15 @@ footer {
     
     .nav-links {
         gap: 1.5rem;
+    }
+    
+    .hero-background {
+        background-position: 25% center;
+        background-size: cover;
+    }
+    
+    .hero-content {
+        padding: 0 1rem 1.5rem;
     }
     
     .nav-links a {
